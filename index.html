@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ivanna Sysak — CCI Application</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Libre+Baskerville:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F5F0E8;
+    --cream-dark: #EDE6D6;
+    --ink: #1C1A16;
+    --ink-light: #4A4640;
+    --ink-faint: #9A9590;
+    --rust: #8B4A2F;
+    --rust-light: #C4724A;
+    --border: rgba(28,26,22,0.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+  }
+
+  /* Header */
+  header {
+    padding: 4rem 2rem 3rem;
+    max-width: 780px;
+    margin: 0 auto;
+    border-bottom: 0.5px solid var(--border);
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards;
+  }
+
+  .header-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 6vw, 4.5rem);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 1.25rem;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--rust);
+  }
+
+  .header-meta {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 1.5rem;
+  }
+
+  .header-meta a {
+    font-size: 13px;
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .header-meta a:hover { color: var(--rust); }
+
+  .header-meta span {
+    font-size: 13px;
+    color: var(--ink-faint);
+  }
+
+  .dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--border);
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  /* Main layout */
+  main {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 2rem 6rem;
+  }
+
+  /* Section headers */
+  .section-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin: 4rem 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 0.5px;
+    background: var(--border);
+  }
+
+  /* Letter */
+  .letter {
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+
+  .letter p {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 16px;
+    line-height: 1.95;
+    color: var(--ink-light);
+    margin-bottom: 1.6rem;
+    max-width: 640px;
+  }
+
+  .letter p:first-child {
+    font-size: 17px;
+    color: var(--ink);
+  }
+
+  .letter .salutation {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--ink-faint);
+    margin-bottom: 2rem;
+  }
+
+  .letter .sign-off {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink);
+    margin-top: 2.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .letter .name-sign {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: var(--ink-faint);
+  }
+
+  /* CV */
+  .cv {
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.3s forwards;
+  }
+
+  .cv-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 0;
+  }
+
+  @media (max-width: 600px) {
+    .cv-grid { grid-template-columns: 1fr; }
+    .cv-sidebar { border-right: none !important; border-bottom: 0.5px solid var(--border); padding-bottom: 2rem; margin-bottom: 2rem; }
+  }
+
+  .cv-sidebar {
+    border-right: 0.5px solid var(--border);
+    padding-right: 2.5rem;
+    padding-top: 0.5rem;
+  }
+
+  .cv-main {
+    padding-left: 2.5rem;
+    padding-top: 0.5rem;
+  }
+
+  .cv-block {
+    margin-bottom: 2.5rem;
+  }
+
+  .cv-block-title {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 1rem;
+  }
+
+  .cv-item {
+    margin-bottom: 1.25rem;
+  }
+
+  .cv-item-name {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+
+  .cv-item-sub {
+    font-size: 12px;
+    color: var(--ink-faint);
+    line-height: 1.5;
+    margin-top: 2px;
+  }
+
+  .cv-exp-item {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .cv-exp-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+
+  .cv-exp-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+
+  .cv-exp-org {
+    font-size: 12px;
+    color: var(--rust-light);
+    margin-bottom: 2px;
+  }
+
+  .cv-exp-date {
+    font-size: 11px;
+    color: var(--ink-faint);
+    margin-bottom: 0.75rem;
+  }
+
+  .cv-exp-bullets {
+    list-style: none;
+    padding: 0;
+  }
+
+  .cv-exp-bullets li {
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: var(--ink-light);
+    padding-left: 1rem;
+    position: relative;
+    margin-bottom: 0.35rem;
+  }
+
+  .cv-exp-bullets li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--ink-faint);
+  }
+
+  .skill-tag {
+    display: inline-block;
+    font-size: 11px;
+    color: var(--ink-light);
+    border: 0.5px solid var(--border);
+    border-radius: 2px;
+    padding: 3px 8px;
+    margin: 3px 3px 3px 0;
+    background: rgba(255,255,255,0.5);
+  }
+
+  .lang-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 5px 0;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .lang-item:last-child { border-bottom: none; }
+
+  .lang-name { font-size: 12px; color: var(--ink); }
+  .lang-level { font-size: 11px; color: var(--ink-faint); }
+
+  /* Footer */
+  footer {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2rem;
+    border-top: 0.5px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.4s forwards;
+  }
+
+  footer span {
+    font-size: 12px;
+    color: var(--ink-faint);
+  }
+
+  footer a {
+    font-size: 12px;
+    color: var(--rust);
+    text-decoration: none;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Print */
+  @media print {
+    body { background: white; }
+    .section-label, .letter, .cv, header, footer { opacity: 1 !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-label">Application — Insights & Engagement Adviser<br>Centre for Collective Intelligence (CCI)</div>
+  <h1>Ivanna <em>Sysak</em></h1>
+  <div class="header-meta">
+    <span>Civic Engagement & Programme Management</span>
+    <span class="dot"></span>
+    <a href="mailto:ivankasysak@gmail.com">ivankasysak@gmail.com</a>
+  </div>
+</header>
+
+<main>
+
+  <div class="section-label">Cover Letter</div>
+
+  <div class="letter">
+    <p>It was the last morning of the programme. We were descending from a mountain refugio in the Italian Alps. Just the three of us, the last to leave, when a rainstorm arrived without warning. We did not know if the rest of the group had made it down safely. There was, however, nothing to do but walk carefully, together, through the rain. We made it down safely. And that evening on the train back to the city, we had the most honest conversation of the entire week, about what it means to feel safe with people, about how trust gets built not through icebreakers but through something so much more unplanned.</p>
+
+    <p>I have thought about that moment many times since. It taught me more about group dynamics than anything I could ever read, and it confirmed something I already believed: that real engagement, the kind that changes how people think and what they are willing to say, requires more than a well-designed agenda, so much more.</p>
+
+    <p>I built that programme, ROZMOVA, from scratch, and not because it was an assignment, but because I needed it personally. In 2022, I was a Ukrainian living in Italy, far from home, following the war in my head as much as on the news. I kept thinking about how many others like me, people who wanted to act, to organise, to do something, were simply cut off from any community that could hold them. So I applied for a fellowship, received a €25,000 grant from Robert Bosch Stiftung, opened a call, recruited 17 participants from 7 EU countries, designed the programme, and facilitated it myself. The network has been running independently ever since, with gatherings in Berlin, Lisbon, and Malta.</p>
+
+    <p>That experience is why the Centre for Collective Intelligence's (CCI) work feels personally meaningful to me, not just professionally interesting. Deliberative democracy is not an abstract concept, not anymore, when you come from a country where having a real say, in absolutely anything, has never been guaranteed. The question of how you create conditions for people to speak honestly, to be heard, and to actually influence what happens next is one I have been living, not just studying.</p>
+
+    <p>I bring to this role a mix of: facilitation experience (including a year-long qualification from Horizontal School in Berlin), qualitative research and knowledge product development from my work at UNDP's Istanbul Regional Hub, project and team management from LABA, and a Master's in International Cooperation from the University of Torino. I work with digital and AI tools as a natural part of my practice. And I am drawn specifically to CCI at this moment, to a team scaling globally, still close enough to its founding energy to be shaped by the people who join it.</p>
+
+    <p>I would love to bring what I have learned; from programmes that worked, and rainstorms that were not in the plan, all to this team.</p>
+
+    <p class="sign-off">Kindly,</p>
+    <p class="name-sign">Ivanna Sysak</p>
+  </div>
+
+  <div class="section-label">Curriculum Vitae</div>
+
+  <div class="cv">
+    <div class="cv-grid">
+
+      <div class="cv-sidebar">
+
+        <div class="cv-block">
+          <div class="cv-block-title">Education</div>
+          <div class="cv-item">
+            <div class="cv-item-name">MA, International Cooperation</div>
+            <div class="cv-item-sub">University of Torino<br>2022 – 2025</div>
+          </div>
+          <div class="cv-item">
+            <div class="cv-item-name">Facilitation School</div>
+            <div class="cv-item-sub">Horizontal School, Berlin<br>2022 – 2023</div>
+          </div>
+          <div class="cv-item">
+            <div class="cv-item-name">SUSI Leadership Program</div>
+            <div class="cv-item-sub">University of Massachusetts, Boston<br>2020</div>
+          </div>
+        </div>
+
+        <div class="cv-block">
+          <div class="cv-block-title">Languages</div>
+          <div class="lang-item"><span class="lang-name">English</span><span class="lang-level">C2</span></div>
+          <div class="lang-item"><span class="lang-name">Ukrainian</span><span class="lang-level">Native</span></div>
+          <div class="lang-item"><span class="lang-name">Italian</span><span class="lang-level">B2</span></div>
+          <div class="lang-item"><span class="lang-name">Polish</span><span class="lang-level">B2</span></div>
+          <div class="lang-item"><span class="lang-name">Russian</span><span class="lang-level">Native</span></div>
+        </div>
+
+        <div class="cv-block">
+          <div class="cv-block-title">Skills</div>
+          <div>
+            <span class="skill-tag">Facilitation & workshop design</span>
+            <span class="skill-tag">Qualitative research</span>
+            <span class="skill-tag">Thematic analysis</span>
+            <span class="skill-tag">Public & civic engagement</span>
+            <span class="skill-tag">Stakeholder coordination</span>
+            <span class="skill-tag">Programme management</span>
+            <span class="skill-tag">Knowledge products</span>
+            <span class="skill-tag">Applied AI & digital tools</span>
+          </div>
+        </div>
+
+        <div class="cv-block">
+          <div class="cv-block-title">Activism</div>
+          <div class="cv-item">
+            <div class="cv-item-name">Global Shapers</div>
+            <div class="cv-item-sub">Torino / Lviv — active</div>
+          </div>
+          <div class="cv-item">
+            <div class="cv-item-name">Ukraine House Davos</div>
+            <div class="cv-item-sub">WEF 2023</div>
+          </div>
+          <div class="cv-item">
+            <div class="cv-item-name">Young UA Delegate to the EU</div>
+            <div class="cv-item-sub">2019 – 2020</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="cv-main">
+
+        <div class="cv-block">
+          <div class="cv-block-title">Experience</div>
+
+          <div class="cv-exp-item">
+            <div class="cv-exp-title">Innovation Team Intern</div>
+            <div class="cv-exp-org">UNDP Istanbul Regional Hub</div>
+            <div class="cv-exp-date">January – July 2026 (contract)</div>
+            <ul class="cv-exp-bullets">
+              <li>Coordinated learning, networking and mentoring programmes for business support organisations in Ukraine and Moldova.</li>
+              <li>Designed a digital knowledge product to document and communicate programme impact across the portfolio.</li>
+              <li>Developed internal learning materials and online courses on emerging technologies for a regional UNDP team.</li>
+            </ul>
+          </div>
+
+          <div class="cv-exp-item">
+            <div class="cv-exp-title">Project Lead & Community Organiser</div>
+            <div class="cv-exp-org">ROZMOVA initiative, Vidnova Fellowship, Robert Bosch Stiftung</div>
+            <div class="cv-exp-date">2023 – 2024</div>
+            <ul class="cv-exp-bullets">
+              <li>Secured and managed a €25,000 grant from Robert Bosch Stiftung to design and deliver a cross-European civic engagement programme for young Ukrainian refugee activists.</li>
+              <li>Recruited and selected 17 participants from 7 EU countries; designed and facilitated a 5-day residential programme in Italy combining peer learning, facilitated workshops, and community-building activities.</li>
+              <li>Produced a detailed programme report documenting outcomes and participant insights.</li>
+              <li>Built a self-sustaining network that continues to organise independently, with follow-up initiatives in Berlin, Lisbon, and Malta.</li>
+            </ul>
+          </div>
+
+          <div class="cv-exp-item">
+            <div class="cv-exp-title">Product Manager</div>
+            <div class="cv-exp-org">Elomia Health Inc</div>
+            <div class="cv-exp-date">September 2024 – March 2025</div>
+            <ul class="cv-exp-bullets">
+              <li>Conducted user research across 4 audience groups to define needs and inform product localisation for a mental health solution serving Ukrainian veterans.</li>
+              <li>Coordinated cross-functional delivery across a multi-disciplinary team.</li>
+            </ul>
+          </div>
+
+          <div class="cv-exp-item">
+            <div class="cv-exp-title">Project Manager</div>
+            <div class="cv-exp-org">LABA UA</div>
+            <div class="cv-exp-date">January – September 2024</div>
+            <ul class="cv-exp-bullets">
+              <li>Led development of digital learning courses for professionals across Ukraine and Turkey, managing a team of 6 and coordinating multi-country stakeholders.</li>
+              <li>Oversaw end-to-end curriculum coordination, from needs assessment through to delivery and quality review.</li>
+              <li>Worked with external experts, authors and technical contractors to produce and update training materials.</li>
+            </ul>
+          </div>
+
+          <div class="cv-exp-item">
+            <div class="cv-exp-title">Youth Worker</div>
+            <div class="cv-exp-org">Association of Cultural Promotion Eufemia</div>
+            <div class="cv-exp-date">April 2021 – November 2022</div>
+            <ul class="cv-exp-bullets">
+              <li>Designed and delivered thematic educational programmes for young Ukrainians relocated across Europe, covering values, identity, and civic engagement.</li>
+              <li>Planned and organised training and community-building events across Italy, Germany, Malta and Portugal.</li>
+              <li>Raised funds and built a small volunteer team to sustain programme operations across multiple countries.</li>
+              <li>Engaged local partners in Torino and broader EU cities to co-implement educational and cultural initiatives.</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <span>Ivanna Sysak · Application for Insights & Engagement Adviser · Centre for Collective Intelligence (CCI)</span>
+  <a href="mailto:ivankasysak@gmail.com">ivankasysak@gmail.com</a>
+</footer>
+
+</body>
+</html>
